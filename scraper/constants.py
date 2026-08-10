@@ -7,12 +7,22 @@ Constants are objects such as base URLs, API endpoints, and other fixed values t
 
 BASE_URL = "https://impds.nic.in/sale/"
 
-STATE = "Goa"
+STATE = {
+    "Goa": 30}
 
-Districts = [
-    "North Goa",
-    "South Goa"
-]
+Districts = {
+    "North Goa" : 585,
+    "South Goa" : 586
+}
+
+Months = {
+    "March" : 3,
+    "April" : 4
+}
+
+YEAR = 2026
+   
+
 
 
 
