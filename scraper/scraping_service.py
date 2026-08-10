@@ -70,10 +70,14 @@ def get_district_fps_data(state_code: str, month: int, year: int) -> dict:
             
             # Step 2: Hit district endpoint (Server requires this to set internal state)
             r_dist = client.get(f'https://impds.nic.in/sale/districtByCountryAjax?stateCode={state_code}')
-            
+
+            # Request FPS listing — note: state code (30), NOT district code
+            r_fps_list = client.get('https://impds.nic.in/sale/fpsByCountryAjax2', params={'stateCode': str(state_code)})
+
             # Extract FPS IDs using regex
-            fps_ids = re.findall(r'"FPSName":\s*"(\d+)"', r_dist.text)
-            
+            fps_ids = re.findall(r"stateData\('(\d+)'\)", r_fps_list.text)
+
+
             if not fps_ids:
                 print(f"No FPS IDs found for district {state_code}.")
                 return all_fps_data
