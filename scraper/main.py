@@ -28,12 +28,7 @@ def main():
                 file_path = os.path.join(target_dir, f"{fps_id}.json")
                 
                 with open(file_path, "w", encoding="utf-8") as f:
-                    # If it's valid JSON (dict), save properly formatted
-                    if isinstance(data, dict) or isinstance(data, list):
-                        json.dump(data, f, ensure_ascii=False, indent=4)
-                    else:
-                        # If the server returned HTML text, save as a raw string
-                        f.write(data)
+                    json.dump(data, f, ensure_ascii=False, indent=4)
                         
                 saved_count += 1
 
