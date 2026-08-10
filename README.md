@@ -313,7 +313,13 @@ pip install -r requirements.txt
 
 ## Running the Scraper
 
-Run:
+Navigate to the scraper directory first:
+
+```bash
+cd scraper
+```
+
+Then run:
 
 ```bash
 python main.py
