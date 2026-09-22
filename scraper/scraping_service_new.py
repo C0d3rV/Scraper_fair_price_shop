@@ -46,8 +46,6 @@ for year in YEARS:
                 client.get(f'https://impds.nic.in/sale/stateUnautmated?month={month}&year={year}')
 
                 res = client.get('https://impds.nic.in/sale/liveStatesAjax')
-
-                #res = client.get(f'https://impds.nic.in/sale/stateUnautmated?month={month}&year={year}')
                 print(res.status_code)
 
                 print(re.findall(r"stateData\('(\d+)'\)\"\>(.*?)\<", res.text))
