@@ -1,0 +1,111 @@
+[
+    [
+        "FPS LIST",
+        "240"
+    ],
+    {
+        "NFSA Ration Card Type": "Priority Household(PHH)",
+        "Regular": "235",
+        "Intra State": "10",
+        "Inter State": "62",
+        "Total": "307"
+    },
+    {
+        "NFSA Ration Card Type": "Antyodaya Anna Yojana (AAY)",
+        "Regular": "4",
+        "Intra State": "0",
+        "Inter State": "2",
+        "Total": "6"
+    },
+    {
+        "NFSA Ration Card Type": "Priority Household (PHH)",
+        "Regular": "235",
+        "Intra State": "10",
+        "Inter State": "62",
+        "Total": "307"
+    },
+    {
+        "NFSA Ration Card Type": "Antyodaya Anna Yojana (AAY)",
+        "Regular": "4",
+        "Intra State": "0",
+        "Inter State": "2",
+        "Total": "6"
+    },
+    {
+        "Commodity": "Wheat",
+        "Regular Txn": "0",
+        "Intra state Txn": "0",
+        "Inter State Txn": "0",
+        "Total": "0.0"
+    },
+    {
+        "Commodity": "Fortified Rice",
+        "Regular Txn": "4.625",
+        "Intra state Txn": "0.205",
+        "Inter State Txn": "1.29",
+        "Total": "6.12"
+    },
+    {
+        "Commodity": "Rice",
+        "Regular Txn": "4,625",
+        "Intra state Txn": "205",
+        "Inter State Txn": "1,290",
+        "Total": "6120.0"
+    },
+    {
+        "Commodity": "Coarse Grains",
+        "Regular Txn": "0",
+        "Intra state Txn": "0",
+        "Inter State Txn": "0",
+        "Total": "0.0"
+    },
+    {
+        "Commodity": "Barley",
+        "Regular Txn": "0",
+        "Intra state Txn": "0",
+        "Inter State Txn": "0",
+        "Total": "0.0"
+    },
+    {
+        "Commodity": "Bajra",
+        "Regular Txn": "0",
+        "Intra state Txn": "0",
+        "Inter State Txn": "0",
+        "Total": "0.0"
+    },
+    {
+        "Commodity": "Maize",
+        "Regular Txn": "0",
+        "Intra state Txn": "0",
+        "Inter State Txn": "0",
+        "Total": "0.0"
+    },
+    {
+        "Commodity": "Jowar",
+        "Regular Txn": "0",
+        "Intra state Txn": "0",
+        "Inter State Txn": "0",
+        "Total": "0.0"
+    },
+    {
+        "Commodity": "Ragi",
+        "Regular Txn": "0",
+        "Intra state Txn": "0",
+        "Inter State Txn": "0",
+        "Total": "0.0"
+    },
+    {
+        "Commodity": "Kodo",
+        "Regular Txn": "0",
+        "Intra state Txn": "0",
+        "Inter State Txn": "0",
+        "Total": "0.0"
+    },
+    {
+        "Commodity": "Total",
+        "Regular Txn": "4,625",
+        "Intra state Txn": "205",
+        "Inter State Txn": "1,290",
+        "Total": "6120.0"
+    }
+]
