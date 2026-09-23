@@ -37,9 +37,9 @@ district = {
 ===================================================
         PHASE 1: PARALLEL DISCOVERY (Async)
 ===================================================
-[Year 2024 Worker] ─┐
-[Year 2025 Worker] ─┼─> Scrape Active States -> Scrape Active Districts
-[Year 2026 Worker] ─┘
+[Year 2024 client1] ─┐
+[Year 2025 client2] ─┼─> Scrape Active States -> Scrape Active Districts
+[Year 2026 client3] ─┘
          │
          ▼
 [ SAVE TO: district_master_list.json ]
