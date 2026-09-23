@@ -30,3 +30,29 @@ states = {
 district = {
     'district_code' : district_name
 }
+
+
+
+
+===================================================
+        PHASE 1: PARALLEL DISCOVERY (Async)
+===================================================
+[Year 2024 Worker] ─┐
+[Year 2025 Worker] ─┼─> Scrape Active States -> Scrape Active Districts
+[Year 2026 Worker] ─┘
+         │
+         ▼
+[ SAVE TO: district_master_list.json ]
+(Close all Phase 1 clients)
+
+===================================================
+        PHASE 2: DEEP EXTRACTION (Iterative)
+===================================================
+Load 'district_master_list.json'
+         │
+         ▼
+[ OPEN NEW CLIENT: FPS WORKER ]
+For each District in Master List:
+   ├─ Fetch FPS ID 1 ─> Fetch the respective data -> Save to DB/JSON
+   ├─ Fetch FPS ID 2 ─> Fetch the respective data -> Save to DB/JSON
+   └─ (Repeat until district is exhausted)
