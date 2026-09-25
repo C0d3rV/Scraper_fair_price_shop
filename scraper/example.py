@@ -64,7 +64,11 @@ For each District in Master List:
 
 
 
-#state codes
+# district codes
+
 {
-       "30" : 'Goa'
+       "Year" : 2020,
+       "Month" : '2',
+       "30": 'GOA',
+       "756": 'NORTH GOA'
 }

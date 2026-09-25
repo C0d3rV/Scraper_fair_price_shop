@@ -17,6 +17,7 @@ def get_state_codes(year: int, month: int) -> dict:
     The output dict is of the format {state_code(string): (state_code(int), state_name),...}. 
     
     """
+    state_req_count = 0
 
     header = {
                 'referer': f'https://impds.nic.in/sale/stateUnautmated?month={month}&year={year}',
@@ -29,10 +30,11 @@ def get_state_codes(year: int, month: int) -> dict:
         with httpx.Client(headers = header, timeout = 30) as client:
             # Establish connection to the server
             client.get(f'https://impds.nic.in/sale/stateUnautmated?month={month}&year={year}')
+            state_req_count += 1
 
             # Pulling the response for live states 
             res = client.get('https://impds.nic.in/sale/liveStatesAjax')
-            print(res.status_code)
+            state_req_count += 1
 
             # Filtering out the required data (state code and their respective names)
             data = re.findall(r"stateData\('(\d+)'\)\"\>(.*?)\<", res.text)
@@ -47,8 +49,10 @@ def get_state_codes(year: int, month: int) -> dict:
 def get_district_codes(year: int, month: int, state_code: int):
     """
     This function returns all the active district codes in the form of a dict for an input month and year.
-    The output dict is of the format {district_code(string): (state_code(int), district_code(int), district_name),...}. 
+    The output dict is of the format {district_code(string): district_name,...}. 
     """
+
+    dist_req_count = 0
 
     header = {
                 "referer": f'https://impds.nic.in/sale/stateUnautmated?month={month}&year={year}',
@@ -60,48 +64,29 @@ def get_district_codes(year: int, month: int, state_code: int):
     try:
         with httpx.Client(headers = header, timeout = 30) as client:
             # Establish connection to the server
-            print("Trying to establish connection...")
+            print(":D Trying to establish connection...")
             client.get(f'https://impds.nic.in/sale/stateUnautmated?month={month}&year={year}')
+            dist_req_count += 1
         
     
             # Pulling the response for live states 
             res = client.get(f'https://impds.nic.in/sale/stateByCountryAjax?stateCode={state_code}')
             if res.status_code == 200:
-                  print("connection established!")
+                  print("✓ connection established! ")
+            dist_req_count +=1
     
             # Filtering out the required data (state code and their respective names)
             print("Finding the required data.")
             data = re.findall(r"aria-label\=\"(.*?)\" onclick=\"stateData\('(\d+)'", res.text)
             if data:
-                  print("data retrieved")
+                  print("data retrieved\n")
     
             # now the output dict
-            output = {item[1]: (state_code, int(item[1]), item[0]) for item in data}
+            output = {item[1]: (item[0]) for item in data}
     except Exception as e:
                 print("error returnig the vbalues")
     return output
     
-
-
-# let's first run it for state codes. we'll write the stae code data to a file, then we'll do that for districts as well. 
-# eventually, we'll change them tofunctions to retreive state and ist codes and compare them against our constants if tehy already exist.
-# basically a eference dict so that we do not keep the state codes in memory all the time while execution.
-
-# master_data = {}
-# for year in YEARS:
-#     master_data[year] = {}
-#     for month in MONTHS:
-#             data = get_state_codes(year, month)
-#             print("data retreived")
-
-#             master_data[year][month] = data
-
-#             with open('constants1.py', 'w', encoding = 'utf-8') as file:
-#                   print("dumping json to file")
-#                   json.dump(master_data, file, indent = 4)
-
-
-#             print("state_codes added succesfully")
 
 
 # Now let's make a function to store our phase 1 parameters: year, month, state code, district code
@@ -118,32 +103,51 @@ def save_params(year, month):
       current_year = date.year
       current_month = date.month
 
+      state_count = 0
+      district_count = 0
+
+      req_sent = 0
+
       start_year = year
       master_data = {}
 
       for y in range(start_year, current_year + 1):
-            start_month = 1
-            max_months = 12
+            master_data[y] = []
 
-            if y == current_year:
-                  max_months = current_month
+            actual_start_month = month if y == start_year else 1
+            actual_max_month = current_month if y == current_year else 12
 
-            print(f'getting data for {y} year...')
-
-            for m in range(start_month, max_months+1):
-                  print(f'scraping data for {m} month...')
+            for m in range(actual_start_month, actual_max_month + 1):
+                  print(f'scraping state codes for year {y} and month {m}...')
                   
                   state_codes = get_state_codes(y, m)
+                  state_count += len(state_codes)
 
                   # Let's make a temporary stoppage point for the state codes.
                   # This will help avoid another nested for loop
 
-                  state_code_master[y][m] = state_codes
+                  # Now we cooking
+                  # We'll just go for district codes now
 
-      with open('state_codes.py', 'w', encoding = 'utf-8') as file:
-            json.dump({state_code_master}, file, indent = 4)
+                  for state in state_codes:
+                        district_codes = get_district_codes(y, m,  int(state))
+                        district_count += len(district_codes)
+                        req_sent += 1
 
-      
+                        for dist in district_codes:
+                              row = {
+                                    "Month" :  m,
+                                    "state_code" : state,
+                                    "state_name" : state_codes[state],
+                                    "district_code" : dist,
+                                    "district_name" : district_codes[dist]
+                                    }
+                              master_data[y].append(row)
+
+      with open('district_codes.json', 'w', encoding = 'utf-8') as file:
+            json.dump(master_data, file, indent = 4)
+      print(f'Finshed scraping codes for {state_count} instances of states and {district_count} instances of districts.')
+      print(f'Requests sent = {req_sent}')
 
       return "Success"
 
