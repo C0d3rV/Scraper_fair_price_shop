@@ -3,8 +3,9 @@ import re
 import json
 import os
 import httpx
+from datetime import datetime
 from bs4 import BeautifulSoup
-from constants import YEARS, MONTHS
+from constants import START_YEAR, MONTHS
 # ---------------------
 
 
@@ -41,7 +42,6 @@ def get_state_codes(year: int, month: int) -> dict:
     except Exception as e:
             print("error returnig the vbalues")
     return output
-
 
 
 def get_district_codes(year: int, month: int, state_code: int):
@@ -87,21 +87,78 @@ def get_district_codes(year: int, month: int, state_code: int):
 # eventually, we'll change them tofunctions to retreive state and ist codes and compare them against our constants if tehy already exist.
 # basically a eference dict so that we do not keep the state codes in memory all the time while execution.
 
-master_data = {}
-for year in YEARS:
-    master_data[year] = {}
-    for month in MONTHS:
-            data = get_state_codes(year, month)
-            print("data retreived")
+# master_data = {}
+# for year in YEARS:
+#     master_data[year] = {}
+#     for month in MONTHS:
+#             data = get_state_codes(year, month)
+#             print("data retreived")
 
-            master_data[year][month] = data
+#             master_data[year][month] = data
 
-            with open('constants1.py', 'w', encoding = 'utf-8') as file:
-                  print("dumping json to file")
-                  json.dump(master_data, file, indent = 4)
+#             with open('constants1.py', 'w', encoding = 'utf-8') as file:
+#                   print("dumping json to file")
+#                   json.dump(master_data, file, indent = 4)
 
 
-            print("state_codes added succesfully")
+#             print("state_codes added succesfully")
+
+
+# Now let's make a function to store our phase 1 parameters: year, month, state code, district code
+def save_params(year, month):
+      """
+      This function will call upon the get_state_codes and get_district_codes.
+      The output will be a dict containing all the phase 1 params.
+      The output will be stored in a single constants file.
+      """
+
+      # We need to only loop through till the current month
+      # because we can't have future data
+      date = datetime.now()
+      current_year = date.year
+      current_month = date.month
+
+      start_year = year
+      master_data = {}
+
+      for y in range(start_year, current_year + 1):
+            start_month = 1
+            max_months = 12
+
+            if y == current_year:
+                  max_months = current_month
+
+            print(f'getting data for {y} year...')
+
+            for m in range(start_month, max_months+1):
+                  print(f'scraping data for {m} month...')
+                  
+                  state_codes = get_state_codes(y, m)
+
+                  # Let's make a temporary stoppage point for the state codes.
+                  # This will help avoid another nested for loop
+
+                  state_code_master[y][m] = state_codes
+
+      with open('state_codes.py', 'w', encoding = 'utf-8') as file:
+            json.dump({state_code_master}, file, indent = 4)
+
+      
+
+      return "Success"
+
+
+save_params(START_YEAR, month = 1)
+
+
+
+
+            
+
+
+
+
+
     
         
 

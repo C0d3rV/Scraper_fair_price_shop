@@ -7,24 +7,23 @@ Constants are objects such as base URLs, API endpoints, and other fixed values t
 
 BASE_URL = "https://impds.nic.in/sale/"
 
-YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
+START_YEAR = 2020
 
-MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-# MONTHS = {
-#     "January"  : 1,
-#     "February" : 2,
-#     "March"    : 3,
-#     "April"    : 4,
-#     "May"      : 5,
-#     "June"     : 6,
-#     "July"     : 7,
-#     "August"   : 8,
-#     "September": 9,
-#     "October"  : 10,
-#     "November" : 11,
-#     "December" : 12
-# }
+MONTHS = {
+    "January"  : 1,
+    "February" : 2,
+    "March"    : 3,
+    "April"    : 4,
+    "May"      : 5,
+    "June"     : 6,
+    "July"     : 7,
+    "August"   : 8,
+    "September": 9,
+    "October"  : 10,
+    "November" : 11,
+    "December" : 12
+}
 
 STATE = {
     "Goa": 30}

@@ -33,6 +33,10 @@ district = {
 
 
 
+# Fourth way
+
+
+
 
 ===================================================
         PHASE 1: PARALLEL DISCOVERY (Async)
@@ -56,3 +60,11 @@ For each District in Master List:
    ├─ Fetch FPS ID 1 ─> Fetch the respective data -> Save to DB/JSON
    ├─ Fetch FPS ID 2 ─> Fetch the respective data -> Save to DB/JSON
    └─ (Repeat until district is exhausted)
+
+
+
+
+#state codes
+{
+       "30" : 'Goa'
+}
